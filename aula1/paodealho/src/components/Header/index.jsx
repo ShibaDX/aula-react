@@ -10,4 +10,4 @@ export const Header = () => {
                 <h1>Pão de alho</h1>
               </header>
     )
-}
+} 

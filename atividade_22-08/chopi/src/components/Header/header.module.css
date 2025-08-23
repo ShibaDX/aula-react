@@ -1,0 +1,22 @@
+/* CSS Header */
+.header {
+    height: 105px;
+    max-width: 100%;
+    text-align: center;
+    color: #FFF;
+    align-content: center;
+}
+
+.color1 {
+        background-color: #000;
+}
+
+.color2 {
+    background-color: crimson;
+}
+
+.header h1 {
+    text-align: center;
+    margin: auto 0;
+    font-size: 42px;
+}

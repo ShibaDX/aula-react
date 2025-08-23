@@ -1,0 +1,30 @@
+/* CSS Main */
+.main {
+    justify-content: center;
+    justify-items: center;
+    width: 100%;
+}
+
+.main h2 {
+    padding: 10px 0 90px 0;
+}
+
+.img {
+    width: 950px;
+    height: 450px;
+
+}
+
+.img1 {
+    background-image: url("../../assets/corinthians_1.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.img2 {
+    background-image: url("../../assets/corinthians_2.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
