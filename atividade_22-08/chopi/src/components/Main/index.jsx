@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import style from './main.module.css'
 
 export const Main = () => {
-    useEffect(() => {
-        console.log('Iniciou o header')
-    }, [])
+  useEffect(() => {
+    console.log('Iniciou o header')
+  }, [])
 
   var [imgName, setImgName] = useState(style.img1)
 
@@ -14,10 +14,12 @@ export const Main = () => {
     }, 1000)
   }, [imgName])
 
-    return(
+  return (
+    <>
       <main className={style.main}>
         <h2>Bem-vindo ao Chopi</h2>
         <div className={style.img + " " + imgName}></div>
       </main>
-    )
+    </>
+  )
 }
