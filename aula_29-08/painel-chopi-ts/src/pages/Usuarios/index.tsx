@@ -1,7 +1,8 @@
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FaPen, FaTrash } from 'react-icons/fa'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 interface IUsuarios {
     id: number;
@@ -11,20 +12,37 @@ interface IUsuarios {
 
 export const Usuarios = () => {
 
+    const navigate = useNavigate();
+
     const [usuarios, setUsuarios] = useState<IUsuarios[]>([])
 
     useEffect(() => {
         console.log('Execução ao iniciar a pg')
 
         axios.get('http://localhost:3001/usuarios')
-        .then((resposta) => {
-            console.log(resposta.data)
+            .then((resposta) => {
+                console.log(resposta.data)
 
-            setUsuarios(resposta.data)
-        })
-        .catch((erro) => {
+                setUsuarios(resposta.data)
+            })
+            .catch((erro) => {
+                console.log(erro)
+            })
+    }, [])
+
+    const excluirUsuarios = useCallback(async (id: number) => {
+
+        try {
+
+            await axios.delete(`http://localhost:3001/usuarios/${id}`)
+
+            const { data } = await axios.get('http://localhost:3001/usuarios')
+
+            setUsuarios(data)
+        } catch (erro) {
+            alert('Erro: Ligue para o suporte: ')
             console.log(erro)
-        })
+        }
     }, [])
 
     return (
@@ -40,6 +58,9 @@ export const Usuarios = () => {
                 <button
                     type="button"
                     className="btn btn-success"
+                    onClick={() => {
+                        navigate('/usuarios/cadastrar')
+                    }}
                 >
                     Adicionar
                 </button>
@@ -64,8 +85,26 @@ export const Usuarios = () => {
                                     <td>{user.nome}</td>
                                     <td>{user.email}</td>
                                     <td>
-                                        <button type="button" className="btn btn-primary" style={{marginRight: 5}}><FaPen /></button>
-                                        <button type="button" className="btn btn-danger" style={{marginRight: 5}}><FaTrash /></button>
+                                        <button
+                                            className="btn btn-primary"
+                                            type="button"
+                                            style={{ marginRight: 5 }}
+                                            onClick={() => {
+                                                // navigate('/usu..'+usuario.id)
+                                                navigate(`/usuarios/${user.id}`)
+                                            }}
+                                        >
+                                            <FaPen />
+                                        </button>
+                                        <button
+                                            className="btn btn-danger"
+                                            type="button"
+                                            onClick={() => {
+                                                excluirUsuarios(user.id)
+                                            }}
+                                        >
+                                            <FaTrash />
+                                        </button>
                                     </td>
                                 </tr>
                             )

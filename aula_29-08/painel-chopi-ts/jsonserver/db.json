@@ -1,9 +1,11 @@
 {
   "usuarios": [
     {
-      "id": 1,
-      "nome": "Markus",
-      "email": "markus@gmail.com"
+      "nome": "Markus KiQ",
+      "email": "markus@gmail.com",
+      "senha": "undefined",
+      "permissoes": "Admin",
+      "id": 1
     },
     {
       "id": 2,
@@ -26,9 +28,28 @@
       "id": 5
     },
     {
-      "nome": "Garro",
-      "email": "garrito@gmail.com",
+      "nome": "Murphys Depay",
+      "email": "murphys@gmail.com",
       "id": 6
+    },
+    {
+      "nome": "Murphys Depay SCCPXD",
+      "email": "murphys@gmail.com",
+      "id": 7
+    },
+    {
+      "nome": "Renato Augusto",
+      "email": "renato@sccp.com",
+      "senha": "corinthians1234",
+      "permissoes": "Colaborador",
+      "id": 8
+    },
+    {
+      "nome": "Guerrero",
+      "email": "guerrero@sccp.com",
+      "senha": "mundial",
+      "permissoes": "Admin",
+      "id": 9
     }
   ]
 }
