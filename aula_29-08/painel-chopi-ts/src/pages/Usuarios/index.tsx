@@ -19,7 +19,7 @@ export const Usuarios = () => {
     useEffect(() => {
         console.log('Execução ao iniciar a pg')
 
-        axios.get('http://localhost:3001/usuarios')
+        axios.get('http://localhost:3001/users')
             .then((resposta) => {
                 console.log(resposta.data)
 
@@ -34,9 +34,9 @@ export const Usuarios = () => {
 
         try {
 
-            await axios.delete(`http://localhost:3001/usuarios/${id}`)
+            await axios.delete(`http://localhost:3001/users/${id}`)
 
-            const { data } = await axios.get('http://localhost:3001/usuarios')
+            const { data } = await axios.get('http://localhost:3001/users')
 
             setUsuarios(data)
         } catch (erro) {

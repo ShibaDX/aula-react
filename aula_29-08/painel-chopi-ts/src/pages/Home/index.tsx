@@ -29,6 +29,13 @@ export const Home = () => {
             >
                 Navegar para Sobre
             </button>
+            <button
+                onClick={() => {
+                    navigate('/usuarios')
+                }}
+            >
+                Navegar para Usuarios
+            </button>
             <a onClick={() => {
                 navigate('/categorias/Corinthians')
             }}>Corinthians</a>

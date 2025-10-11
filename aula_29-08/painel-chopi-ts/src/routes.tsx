@@ -8,6 +8,7 @@ import { Categorias } from "./pages/Categorias"
 import { Usuarios } from "./pages/Usuarios"
 import GerenciarUsuarios from "./pages/Usuarios/Gerenciar"
 import { Sobre } from "./pages/Sobre"
+import Login from "./pages/Login"
 
 export const Rotas = () => {
     return (
@@ -15,6 +16,10 @@ export const Rotas = () => {
             <Routes>
                 <Route
                     path="/"
+                    element={<Login />}
+                />
+                <Route
+                    path="/home"
                     element={<Home />}
                 />
                 <Route

@@ -11,7 +11,7 @@ export default function GerenciarUsuarios() {
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        
+
         const idUser = Number(id)
         console.log(idUser);
 
@@ -19,7 +19,7 @@ export default function GerenciarUsuarios() {
             console.log('é numero')
             setIsEditar(true)
 
-            axios.get(`http://localhost:3001/usuarios?id=${idUser}`)
+            axios.get(`http://localhost:3001/users?id=${idUser}`)
                 .then(({ data }) => {
                     refForm.current['nome'].value = data[0].nome
                     refForm.current['email'].value = data[0].email
@@ -35,13 +35,13 @@ export default function GerenciarUsuarios() {
     const submitForm = useCallback((event: SyntheticEvent) => {
         event.preventDefault();
 
-setIsLoading(true)
+        setIsLoading(true)
 
         if (refForm.current.checkValidity()) {
 
 
 
-            const target = event.target as typeof event.target & {
+            const target = event.target as typeof event.target & { // tipagem dos dados
                 nome: { value: string },
                 email: { value: string },
                 senha: { value: string },
@@ -59,7 +59,7 @@ setIsLoading(true)
                 console.log('esta editando');
                 setIsLoading(true)
 
-                axios.put('http://localhost:3001/usuarios/' + id, objSalvar)
+                axios.put('http://localhost:3001/users/' + id, objSalvar)
                     .then(() => {
 
 
@@ -74,7 +74,7 @@ setIsLoading(true)
             } else {
                 console.log('esta criando');
                 setIsLoading(true)
-                axios.post('http://localhost:3001/usuarios', objSalvar)
+                axios.post('http://localhost:3001/users', objSalvar)
                     .then(() => {
                         alert('Salvo que alegria :D')
                         navigate('/usuarios')
@@ -168,14 +168,16 @@ setIsLoading(true)
                         </label>
                         <select
                             className="form-select"
+                            defaultValue={""}
                             id="permissoes"
                             required
                         >
+                            <option value="" disabled>Selecione o Tipo</option>
                             <option value="Colaborador">Colaborador</option>
                             <option value="Admin">Admin</option>
                         </select>
                         <div className="invalid-feedback">
-                            Por favor digite seu email.
+                            Por favor selecione uma permissão.
                         </div>
                     </div>
 
