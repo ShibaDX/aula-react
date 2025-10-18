@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useCallback, useEffect, useRef, useState, type SyntheticEvent } from "react"
 import { useNavigate, useParams } from "react-router-dom";
+import { Loading } from "../../../components/Loading";
 
 export default function GerenciarUsuarios() {
 
@@ -19,6 +20,8 @@ export default function GerenciarUsuarios() {
             console.log('é numero')
             setIsEditar(true)
 
+            setIsLoading(true)
+
             axios.get(`http://localhost:3001/users?id=${idUser}`)
                 .then(({ data }) => {
                     refForm.current['nome'].value = data[0].nome
@@ -29,17 +32,19 @@ export default function GerenciarUsuarios() {
                 .catch((erro) => {
                     console.log(erro)
                 })
+                .finally(() => {
+                    setIsLoading(false)
+                })
+
         }
     }, [id])
 
     const submitForm = useCallback((event: SyntheticEvent) => {
         event.preventDefault();
 
-        setIsLoading(true)
+
 
         if (refForm.current.checkValidity()) {
-
-
 
             const target = event.target as typeof event.target & { // tipagem dos dados
                 nome: { value: string },
@@ -51,14 +56,15 @@ export default function GerenciarUsuarios() {
             let objSalvar = {
                 nome: target.nome.value,
                 email: target.email.value,
-                senha: target.senha.value,
+                password: target.senha.value,
                 permissoes: target.permissoes.value,
             }
+
+            setIsLoading(true)
 
             if (isEditar) {
                 console.log('esta editando');
                 setIsLoading(true)
-
                 axios.put('http://localhost:3001/users/' + id, objSalvar)
                     .then(() => {
 
@@ -69,6 +75,9 @@ export default function GerenciarUsuarios() {
                     })
                     .catch((erro) => {
                         console.log(erro)
+                    })
+                    .finally(() => {
+                        setIsLoading(false)
                     })
 
             } else {
@@ -83,9 +92,12 @@ export default function GerenciarUsuarios() {
                         console.log(erro)
                         alert('deu ruim que triste :(')
                     })
+                    .finally(() => {
+                        setIsLoading(false)
+                    })
             }
 
-
+            setIsLoading(false)
 
         } else {
             refForm.current.classList.add('was-validated')
@@ -96,6 +108,7 @@ export default function GerenciarUsuarios() {
 
     return (
         <>
+            <Loading visible={isLoading} />
             <div className="container">
                 <h1>{isEditar ? "Editar" : "Cadastrar"} Usuário</h1>
 
@@ -194,7 +207,7 @@ export default function GerenciarUsuarios() {
                         <button
                             className="btn btn-primary"
                             type="submit"
-                        > {isLoading ? "CARREGANDO" : ""} {isEditar ? "Editar" : "Cadastrar"}</button>
+                        >{isEditar ? "Editar" : "Cadastrar"}</button>
                     </div>
 
                 </form>

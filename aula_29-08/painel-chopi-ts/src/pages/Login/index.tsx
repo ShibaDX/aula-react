@@ -1,6 +1,7 @@
 import { useCallback, useRef, type SyntheticEvent } from 'react'
 import styles from './styles.module.css'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Login() {
 
@@ -26,10 +27,23 @@ export default function Login() {
             // acessar info do BD
             // axios acessa informações do back-end, que está acessando o BD
             axios.post('http://localhost:3001/login', objSalvar)
-            .then((resposta) => {
-                console.log(resposta.data)
-            })
-            .catch()
+                .then((resposta) => {
+
+                    // salvar o token no front end
+
+                    // LocalStorage - BD do navegador
+
+                    localStorage.setItem(
+                        'chopts:token',
+                        JSON.stringify(resposta.data)
+                    )
+
+                    navigate('/usuarios')
+                })
+                .catch((err) => {
+                    console.log(err)
+                    alert('Email ou senha invalidos') // alert é gambiarra, não usar em projetos como hackathon e tcc
+                })
 
         } else {
             refForm.current.classList.add('was-validated')
@@ -52,8 +66,8 @@ export default function Login() {
                     <form
                         noValidate
                         className="needs-validation g-3 row"
-                    ref={refForm}
-                    onSubmit={submitForm}
+                        ref={refForm}
+                        onSubmit={submitForm}
                     >
                         <div className="col-md-12">
                             <label
