@@ -54,6 +54,20 @@
       "nome": "Ronaldo Nazario",
       "permissoes": "Admin",
       "id": 11
+    },
+    {
+      "email": "admin@adm.com",
+      "password": "$2a$10$8xWcHP3ZksN0T.nuzDCjxurY7se6TU/pJUgV.TgY6vorgJbXESYhq",
+      "nome": "admin",
+      "permissoes": "Admin",
+      "id": 12
+    },
+    {
+      "email": "colaborador@colab.com",
+      "password": "$2a$10$iibJGy4yQpo/cp2CQEsoUu5s9thWHvlUFu0/K34r7tbZYo894ZCVO",
+      "nome": "Colaborador",
+      "permissoes": "Colaborador",
+      "id": 13
     }
   ]
 }

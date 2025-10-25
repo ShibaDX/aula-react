@@ -21,7 +21,7 @@ export default function Login() {
 
             let objSalvar = {
                 email: target.email.value,
-                senha: target.senha.value,
+                password: target.senha.value,
             }
 
             // acessar info do BD
