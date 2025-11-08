@@ -78,26 +78,40 @@
       "dataNascimento": "1985-02-05",
       "email": "cr7@realmadrid.com",
       "telefone": "(11) 91234-5678",
-      "endereco": "Rua das Estrelas, 1000, Madrid, Espanha",
+      "logradouro": "Rua das Estrelas",
       "numero": "1000",
       "complemento": "Apto 101",
       "bairro": "Centro",
       "cidade": "Madrid",
-      "estado": "Espanha"
+      "estado": "ES"
     },
     {
-      "id": 2,
       "nome": "Ronaldo Nazario",
       "cpf": "049.251.460-12",
       "dataNascimento": "1978-04-14",
-      "email": "ronaldo@email.com",
+      "email": "ronaldo@fenomeno.com",
       "telefone": "(11) 99641-2405",
       "logradouro": "Av. Brasil",
       "numero": "5567",
       "complemento": "Apt 201",
       "bairro": "Centro",
       "cidade": "São Paulo",
-      "estado": "SP"
+      "estado": "SP",
+      "id": 2
+    },
+    {
+      "nome": "Neymar Jr",
+      "cpf": "245.234.636-90",
+      "dataNascimento": "1990-09-04",
+      "email": "ney@barcelona.com",
+      "telefone": "(11) 99790-4367",
+      "logradouro": "Rua Barça",
+      "numero": "4889",
+      "complemento": "Apt 401",
+      "bairro": "Centro",
+      "cidade": "Santos",
+      "estado": "SP",
+      "id": 3
     }
   ]
 }

@@ -15,22 +15,24 @@ export default function GerenciarClientes() {
 
         const idCliente = Number(id)
         console.log(idCliente);
+        console.log(!isNaN(idCliente))
 
         if (!isNaN(idCliente)) {
             console.log('é numero')
             setIsEditar(true)
+            console.log(isEditar)
 
             setIsLoading(true)
 
             axios.get(`http://localhost:3001/clientes?id=${idCliente}`)
                 .then(({ data }) => {
-                    refForm.current['id'].value = data[0].id
+
                     refForm.current['nome'].value = data[0].nome
                     refForm.current['cpf'].value = data[0].cpf
                     refForm.current['dataNascimento'].value = data[0].dataNascimento
                     refForm.current['email'].value = data[0].email
                     refForm.current['telefone'].value = data[0].telefone
-                    refForm.current['logradouro'].value = data[0].endereco
+                    refForm.current['logradouro'].value = data[0].logradouro
                     refForm.current['numero'].value = data[0].numero
                     refForm.current['complemento'].value = data[0].complemento
                     refForm.current['bairro'].value = data[0].bairro
@@ -102,18 +104,11 @@ export default function GerenciarClientes() {
                     })
 
             } else {
-                // criando: obter o último id numérico do servidor e somar 1
                 console.log('esta criando');
                 setIsLoading(true)
 
-                // pegar o maior id existente (ordenando desc e limitando a 1)
-                axios.get('http://localhost:3001/clientes?_sort=id&_order=desc&_limit=1')
-                    .then(({ data }) => {
-                        const lastId = (Array.isArray(data) && data.length > 0) ? Number(data[0].id) : 0
-                        const newId = lastId + 1
-                        objSalvar.id = newId
-                        return axios.post('http://localhost:3001/clientes', objSalvar)
-                    })
+                axios.post('http://localhost:3001/clientes', objSalvar)
+                    
                     .then(() => {
                         alert('Salvo que alegria :D')
                         navigate('/clientes')
@@ -273,6 +268,7 @@ export default function GerenciarClientes() {
                             className="form-control"
                             placeholder="Ex: 0000"
                             id="numero"
+                            maxLength={4}
                             required
                         />
                         <div className="invalid-feedback">
@@ -345,6 +341,7 @@ export default function GerenciarClientes() {
                             className="form-control"
                             placeholder="Ex: SP, RJ, PR"
                             id="estado"
+                            maxLength={2}
                             required
                         />
                         <div className="invalid-feedback">
