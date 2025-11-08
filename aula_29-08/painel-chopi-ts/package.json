@@ -11,6 +11,9 @@
     "server": "npx json-server ./jsonserver/db.json --port 3001 --delay 2000 -m ./node_modules/json-server-auth"
   },
   "dependencies": {
+    "@coreui/icons": "^3.0.1",
+    "@coreui/icons-react": "^2.3.0",
+    "@coreui/react": "^5.9.1",
     "axios": "^1.11.0",
     "bootstrap": "^5.3.8",
     "json-server": "^0.17.4",

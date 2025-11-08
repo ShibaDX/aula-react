@@ -8,17 +8,20 @@ import { Toast } from '../../components/Toast';
 import { validaPermissao, verificaTokenExpirado } from '../../service/token';
 import type { IToken } from '../../interfaces/token';
 
-interface IUsuarios {
+interface IClientes {
     id: number;
     nome: string;
     email: string;
+    cpf: string;
+    dataNascimento: string;
+    telefone: string;
 }
 
-export const Usuarios = () => {
+export const Clientes = () => {
 
     const navigate = useNavigate();
 
-    const [usuarios, setUsuarios] = useState<IUsuarios[]>([])
+    const [clientes, setClientes] = useState<IClientes[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [showToast, setShowToast] = useState(false)
     const [messageToast, setMessageToast] = useState('')
@@ -43,11 +46,11 @@ export const Usuarios = () => {
         }
 
         setIsLoading(true)
-        axios.get('http://localhost:3001/users')
+        axios.get('http://localhost:3001/clientes')
             .then((resposta) => {
                 console.log(resposta.data)
 
-                setUsuarios(resposta.data)
+                setClientes(resposta.data)
             })
             .catch((erro) => {
                 console.log(erro)
@@ -57,16 +60,16 @@ export const Usuarios = () => {
             })
     }, [])
 
-    const excluirUsuarios = useCallback(async (id: number) => {
+    const excluirClientes = useCallback(async (id: number) => {
 
         try {
 
             setIsLoading(true)
-            await axios.delete(`http://localhost:3001/users/${id}`)
+            await axios.delete(`http://localhost:3001/clientes/${id}`)
 
-            const { data } = await axios.get('http://localhost:3001/users')
+            const { data } = await axios.get('http://localhost:3001/clientes')
 
-            setUsuarios(data)
+            setClientes(data)
             setShowToast(true)
             setMessageToast('Usuário deletado com sucesso :D')
             setCorToast('success')
@@ -97,83 +100,79 @@ export const Usuarios = () => {
                 }}
             >
 
-                <h1 className='me-4'>Usuarios</h1>
+                <h1 className='me-4'>Lista de Clientes</h1>
 
                 <button
                     type="button"
                     className="btn btn-primary me-2"
                     onClick={() => {
-                        navigate('/clientes')
+                        navigate('/usuarios')
                     }}
                 >
-                    Clientes
+                    Usuários
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-success me-2"
+                    onClick={() => {
+                        navigate('/clientes/cadastrar')
+                    }}
+                >
+                    Adicionar
                 </button>
 
-                {
-                    validaPermissao(token?.user.permissoes, ['Admin'])
-                    && (<button
-                        type="button"
-                        className="btn btn-success me-2"
-                        onClick={() => {
-                            navigate('/usuarios/cadastrar')
-                        }}
-                    >
-                        Adicionar
-                    </button>)
-                }
 
             </div>
+
             <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nome</th>
-                        <th scope="col">Email</th>
-                        {
-                            validaPermissao(token?.user.permissoes, ['Admin'])
-                            && (<th scope="col">Ações</th>)
-                        }
+                        <th scope="col">CPF</th>
+                        <th scope="col">Data Nascimento</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Telefone</th>
+
+                        <th scope="col">Ações</th>
+
 
                     </tr>
                 </thead>
                 <tbody>
                     {
                         //foreach
-                        usuarios.map((user, index) => {
+                        clientes.map((cliente, index) => {
                             return (
                                 // key = para diferenciar os elementos, como um id
                                 <tr key={index}>
-                                    <th scope="row">{user.id}</th>
-                                    <td>{user.nome}</td>
-                                    <td>{user.email}</td>
-                                    {
-                                        validaPermissao(token?.user.permissoes, ['Admin'])
-                                        && (
-                                            <td>
-                                                <button
-                                                    className="btn btn-primary"
-                                                    type="button"
-                                                    style={{ marginRight: 5 }}
-                                                    onClick={() => {
-                                                        // navigate('/usu..'+usuario.id)
-                                                        navigate(`/usuarios/${user.id}`)
-                                                    }}
-                                                >
-                                                    <FaPen />
-                                                </button>
-                                                <button
-                                                    className="btn btn-danger"
-                                                    type="button"
-                                                    onClick={() => {
-                                                        excluirUsuarios(user.id)
-                                                    }}
-                                                >
-                                                    <FaTrash />
-                                                </button>
-                                            </td>
-                                        )
-                                    }
-
+                                    <th scope="row">{cliente.id}</th>
+                                    <td>{cliente.nome}</td>
+                                    <td>{cliente.cpf}</td>
+                                    <td>{cliente.dataNascimento}</td>
+                                    <td>{cliente.email}</td>
+                                    <td>{cliente.telefone}</td>
+                                    <td>
+                                        <button
+                                            className="btn btn-primary"
+                                            type="button"
+                                            style={{ marginRight: 5 }}
+                                            onClick={() => {
+                                                navigate(`/clientes/${cliente.id}`)
+                                            }}
+                                        >
+                                            <FaPen />
+                                        </button>
+                                        <button
+                                            className="btn btn-danger"
+                                            type="button"
+                                            onClick={() => {
+                                                excluirClientes(cliente.id)
+                                            }}
+                                        >
+                                            <FaTrash />
+                                        </button>
+                                    </td>
                                 </tr>
                             )
                         })

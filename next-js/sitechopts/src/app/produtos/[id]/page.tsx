@@ -4,6 +4,7 @@ interface IParametro {
     params: { id: string }
 }
 
+// somente é aceito do lado servidor
 export default async function Categorias({ params }: IParametro) {
 
     const { id } = await params
